@@ -40,27 +40,54 @@ title('histogram flattening');
 % J_bw = im2bw(J,0.5);
 % figure;
 % showgray(J_bw);
-% with local bw - 16x16 block
-[m,n] = size(J);
-mask = ones(16,16)*1/(16*16);
-new_J = ones(m,n);
-for i=8:m-8
-    for j=8:m-8
-        mask_mean = sum(sum(double(J(i-7:i+8, j-7:j+8)).*double(mask)));
-        new_J(i-7:i+8, j-7:j+8) = J(i-7:i+8, j-7:j+8) > mask_mean;
-        
-    end
-end
+% with local bw - 8x8 block
+% [m,n] = size(J);
+% msize = 4;
+% mask = ones(msize,msize)*1/(msize*msize);
+% new_J = ones(m,n);
+% for i=msize/2:m-msize/2
+%     for j=msize/2:m-msize/2
+%         mask_mean = sum(sum(double(J(i-(msize/2-1):i+msize/2, j-(msize/2-1):j+msize/2)).*double(mask)));
+%         new_J(i-(msize/2-1):i+msize/2, j-(msize/2-1):j+msize/2) = J(i-(msize/2-1):i+msize/2, j-(msize/2-1):j+msize/2) > mask_mean;
+%         
+%     end
+% end
+new_J_4 = localbinerizer(J, 4);
 
 figure;
-showgray(new_J);
-title('local binarized');
+showgray(new_J_4);
+title(sprintf('local binarized %d', 4));
+
+new_J_6 = localbinerizer(J, 6);
+
+figure;
+showgray(new_J_6);
+title(sprintf('local binarized %d', 6));
+
+new_J_8 = localbinerizer(J, 8);
+
+figure;
+showgray(new_J_8);
+title(sprintf('local binarized %d', 8));
+
+new_J_10 = localbinerizer(J, 10);
+
+figure;
+showgray(new_J_10);
+title(sprintf('local binarized %d', 10));
+
+new_J_12 = localbinerizer(J, 12);
+
+figure;
+showgray(new_J_12);
+title(sprintf('local binarized %d', 12));
+
 
 %apply thinning:
-J_bw_thin = bwmorph(new_J,'thin',Inf);
-figure;
-showgray(J_bw_thin);
-title('thinning');
+% J_bw_thin = bwmorph(new_J,'thin',Inf);
+% figure;
+% showgray(J_bw_thin);
+% title('thinning');
 
 
 
