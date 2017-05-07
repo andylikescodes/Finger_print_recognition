@@ -15,7 +15,6 @@ for k = 1:4
         end
         check = (neightbors(k,:) == list(l,:));
         if check(1)==1 && check(2)==1
-            disp(check);
             bool = true;
             flag = true;
             
@@ -23,4 +22,3 @@ for k = 1:4
     end
 
 end
-disp(bool);
